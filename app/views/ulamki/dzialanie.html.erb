@@ -1,0 +1,14 @@
+
+
+<h1>Działajmy na ułamkach dziesiętnych! </h1>
+<p>Wpisz, jaki będzie wynik działania</p>
+<%= generuj_dzialanie %>
+
+
+
+<%= form_tag(method: "get", url: '/wynik') do %>
+  <%= label_tag(:w, "Wpisz wynik") %>
+  <%= text_field_tag(:w) %>
+  <%= submit_tag("Sprawdź") %>
+<% end %>
+  
