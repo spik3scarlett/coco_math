@@ -1,9 +1,16 @@
 <header class="navbar navbar-fixed-top navbar">
   <div class="container">
-    <%= link_to "Coco Monkey+", 'https://cocomonkeyblog.wordpress.com/', id: "logo" %>
-    <nav>
+   <a class="navbar-brand" href="https://cocomonkeyblog.files.wordpress.com/" id="logo">
+        <img alt="CocoMonkey logo" src="https://cocomonkeyblog.files.wordpress.com/2017/07/cropped-krzywe-2-monkey1.png?w=1024&h=228" style="width:366px;height:82px;border:0;>
+      </a>
+   
+   
+    <nav class="navbar navbar-default">
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Strona główna", root_path %></li>
+        <li><%= link_to "O szkole", "https://cocomonkeyblog.wordpress.com/about/" %></li>
+        <li><%= link_to "Cennik", "https://cocomonkeyblog.wordpress.com/cennik/" %></li>
+        <li><%= link_to "Kontakt", "https://cocomonkeyblog.wordpress.com/contact/" %></li>
+        <li><%= link_to "Blog", "https://cocomonkeyblog.wordpress.com/blog/" %></li>
         <li><%= link_to "Ćwiczenia", dzialanie_path %></li>
 
       </ul>
