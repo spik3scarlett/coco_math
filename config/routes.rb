@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  root 'ulamki#dzialanie'
   get '/dzialanie', to: 'ulamki#dzialanie'
 
   get '/wynik',  to: 'ulamki#wynik'
