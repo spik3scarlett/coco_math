@@ -1,6 +1,14 @@
-<% provide(@wynik) %>d
-<h1>Ulamki#wynik</h1>
-<p>Find me in app/views/ulamki/wynik.html.erb</p>
-<%= sprawdz %>
-<br/>
-<%= link_to("Gram dalej", '/dzialanie') %>
+<% provide(@wynik) %>
+<h1>Ćwiczenia z matematyki</h1>
+<h2>Działamy na ułamkach dziesiętnych! </h2>
+<div class="container">
+  <div class="jumbotron">
+      <p>
+        <%= sprawdz %>
+        <br/>
+      </p>
+      
+       <a href="/dzialanie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>
+  </div>
+ 
+</div>

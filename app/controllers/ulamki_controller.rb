@@ -4,9 +4,10 @@ class UlamkiController < ApplicationController
 
   
   def dzialanie
-    n = rand(1..3)
-    @ulamek1 = rand(0.1..99.9).round(n)
-    @ulamek2 = rand(0.1..99.9).round(n)
+    n = rand(1..2)
+    m = rand(1..3)
+    @ulamek1 = rand(0.1..9.9).round(n)
+    @ulamek2 = rand(0.1..99.9).round(m)
   end
 
   def wynik

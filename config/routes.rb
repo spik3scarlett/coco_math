@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   root 'ulamki#dzialanie'
+  post '/', to: 'ulamki#wynik'
   get '/dzialanie', to: 'ulamki#dzialanie'
 
   get '/wynik',  to: 'ulamki#wynik'
