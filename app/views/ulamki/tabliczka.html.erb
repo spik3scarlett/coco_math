@@ -1,0 +1,18 @@
+
+<h1>Ćwiczenia z matematyki</h1>
+<h2>Sprawdź się w tabliczce mnożenia! </h2>
+<div class="container">
+  <div class="jumbotron">
+  <p>
+  <%= pomnoz %>
+  </p>
+  
+  
+  <%= form_tag(method: "get", url: '/wynik') do %>
+    <%= label_tag(:w, "Wpisz wynik") %>
+    <%= text_field_tag(:w) %>
+    <%= submit_tag("Sprawdź") %>
+  <% end %>
+  
+  </div>  
+</div>
