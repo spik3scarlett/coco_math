@@ -1,4 +1,11 @@
 module UlamkiHelper
+  def wstaw_guzik
+    if session[:rodzaj] == "ulamki"
+      render html:  '<a href="/dzialanie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    else
+      render html:  '<a href="/tabliczka" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    end
+  end
   
   def sprawdz
      if params[:w].include?(",")

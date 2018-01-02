@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   
-  root 'ulamki#dzialanie'
+  root 'static_pages#main'
+  
   post '/', to: 'ulamki#wynik'
   get '/dzialanie', to: 'ulamki#dzialanie'
-
+  get '/tabliczka', to: 'ulamki#tabliczka'
   get '/wynik',  to: 'ulamki#wynik'
   post "/dzialanie", to: 'ulamki#wynik'
+  post '/tabliczka', to: 'ulamki#wynik'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
