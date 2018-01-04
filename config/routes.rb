@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/wynik',  to: 'ulamki#wynik'
   post "/dzialanie", to: 'ulamki#wynik'
   post '/tabliczka', to: 'ulamki#wynik'
+  get '/jednostki', to: 'ulamki#jednostki'
+  post '/jednostki', to: 'ulamki#wynik'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,18 @@
+
+<h1>Ćwiczenia z matematyki</h1>
+<h2>Potrenuj przeliczanie jednostek! </h2>
+<div class="container">
+  <div class="jumbotron">
+  <p>
+  <%= przeliczaj_jednostki %>
+  </p>
+  
+  
+  <%= form_tag(method: "get", url: '/wynik') do %>
+    <%= label_tag(:w, "Wpisz wynik") %>
+    <%= text_field_tag(:w) %>
+    <%= submit_tag("Sprawdź") %>
+  <% end %>
+  
+  </div>  
+</div>

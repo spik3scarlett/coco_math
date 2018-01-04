@@ -1,18 +1,51 @@
 module UlamkiHelper
+  def usun_zera(wynik)
+  tablica = wynik.to_s.chars
+    if tablica.include?(".")
+    
+      while tablica[-1] == "0" do
+        tablica.pop
+      end
+      tablica.join
+      
+    else
+      wynik
+    end
+  end
+  
+    def przeliczaj_jednostki
+      przedrostki_m = [[ "mikro", "µ", 0.000001], ["mili", "m", 0.001], ["centy", "c", 0.01], ["decy", "d", 0.1], ["kilo", "k", 1000], ["", "", 1]]
+      przedrostki_l = [[ "mikro", "µ", 0.000001], ["mili", "m", 0.001], ["decy", "d", 0.1], ["hekto", "h", 100], ["", "", 1]]
+      przedrostki_g = [[ "mikro", "µ", 0.000001], ["mili", "m", 0.001], ["deka", "da", 10], ["kilo", "k", 1000], ["", "", 1]]
+      jednostki = [["litrów", "l", przedrostki_l], ["gramów", "g", przedrostki_g], ["metrów", "m", przedrostki_m]]
+      
+      @jednostka = jednostki.sample
+      @przedrostek1 = @jednostka[2].sample
+      @jednostka[2].delete(@przedrostek1)
+      @przedrostek2 = @jednostka[2].sample
+      
+      @wynik = @ulamek1  * @przedrostek1[2] / @przedrostek2[2] 
+      session[:wynik] = "%1.10f" % @wynik
+      render html: "Uzupełnij: #{@ulamek1} #{@przedrostek1[1]}#{@jednostka[1]} (#{@przedrostek1[0]}#{@jednostka[0]}) - ile to będzie #{@przedrostek2[1]}#{@jednostka[1]} (#{@przedrostek2[0]}#{@jednostka[0]})?"
+    end
+  
   def wstaw_guzik
     if session[:rodzaj] == "ulamki"
       render html:  '<a href="/dzialanie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else
+    elsif session[:rodzaj] == "tabliczka"
       render html:  '<a href="/tabliczka" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    else
+      render html:  '<a href="/jednostki" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     end
   end
   
   def sprawdz
      if params[:w].include?(",")
-    input = params[:w].sub!(",", ".").to_f
+       input = params[:w].sub!(",", ".").to_f
      else
-    input = params[:w].to_f   
+       input = params[:w].to_f   
      end
+    
     if input == session[:wynik]
       if session[:punkty].nil?
         session[:punkty] = 1
@@ -20,9 +53,8 @@ module UlamkiHelper
         session[:punkty] += 1
       end  
     render html: "Świetnie! Zdobywasz punkt! Liczba Twoich punktów: #{session[:punkty]}"
-    
      else
-    render html: "Zonk! Twoim zdaniem jest to #{params[:w]}, a powinno być #{session[:wynik]}"
+    render html: "Zonk! Twoim zdaniem jest to #{params[:w]}, a powinno być #{usun_zera(session[:wynik])}"
     end
   end
 
