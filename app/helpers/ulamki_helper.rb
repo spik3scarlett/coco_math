@@ -6,7 +6,7 @@ module UlamkiHelper
       while tablica[-1] == "0" do
         tablica.pop
       end
-      tablica.join
+      tablica.join.to_f
       
     else
       wynik
@@ -46,7 +46,7 @@ module UlamkiHelper
        input = params[:w].to_f   
      end
     
-    if input == session[:wynik]
+    if input == session[:wynik].to_f
       if session[:punkty].nil?
         session[:punkty] = 1
       else
