@@ -41,4 +41,23 @@ class UlamkiController < ApplicationController
     end
   end
   
+  def zaokraglanie_ulamkow
+    n = rand(0..4)
+    @ulamek1 = rand(1.0..99.99999).round(5)
+    @wynik = @ulamek1.round(n)
+    session[:rodzaj] = "zaokraglanie_ulamkow"
+    
+    if n == 0
+      @miejsce = "jednostek"
+      elsif n == 1
+      @miejsce = "części dziesiętnych"
+      elsif n == 2
+      @miejsce = "części setnych"
+      elsif n == 3
+      @miejsce = "części tysięcznych"
+      else
+      @miejsce = "części dziesięciotysięcznych"
+    end
+  end
+  
 end

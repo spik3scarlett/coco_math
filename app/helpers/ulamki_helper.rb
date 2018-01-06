@@ -1,11 +1,19 @@
 module UlamkiHelper
   
   
-  def zaokraglij_duze
+  def zaokraglij_naturalne
     session[:wynik] = @wynik
     render html: "Zaokrąglij liczbę #{@ulamek1} do rzędu #{@miejsce}."
 
   end
+  
+  def zaokraglij_ulamki
+    session[:wynik] = @wynik
+    render html: "Zaokrąglij liczbę #{@ulamek1} do #{@miejsce}."
+
+  end
+  
+  
   
   
   def usun_zera(wynik)
@@ -15,10 +23,10 @@ module UlamkiHelper
       while tablica[-1] == "0" do
         tablica.pop
       end
-      tablica.join.to_f
+      tablica.join
       
     else
-      wynik
+      wynik.to_s
     end
   end
   
@@ -45,8 +53,11 @@ module UlamkiHelper
       render html:  '<a href="/tabliczka" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "jednostki"
       render html:  '<a href="/jednostki" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else # sesja : zaokraglanie_naturalnych
+    elsif session[:rodzaj] == "zaokraglanie_naturalnych"
       render html:  '<a href="/zaokraglanie-liczb-naturalnych" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    else # zaokraglanie_ulamkow
+      render html:  '<a href="/zaokraglanie-ulamkow" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    
     end
   end
   

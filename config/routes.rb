@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   post '/jednostki', to: 'ulamki#wynik'
   get '/zaokraglanie-liczb-naturalnych', to: 'ulamki#zaokraglanie_naturalnych'
   post '/zaokraglanie-liczb-naturalnych', to: 'ulamki#wynik'
-
+  get '/zaokraglanie-ulamkow', to: 'ulamki#zaokraglanie_ulamkow'
+  post '/zaokraglanie-ulamkow', to: 'ulamki#wynik'
 
   # The priority is based upon order of creation: first created -> highest priority.
 
