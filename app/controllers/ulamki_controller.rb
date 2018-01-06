@@ -1,6 +1,20 @@
 class UlamkiController < ApplicationController
   protect_from_forgery with: :exception
   
+  
+  def wynik_stringi
+    
+  end
+  
+  def rzymskie
+    @ulamek1 = rand(1..100)
+    session[:rodzaj] = "rzymskie"
+    
+  end
+    
+    
+    
+    
   def ilerazy
     @ulamek1 = rand(11...30)
     @ulamek2 = rand(2...10)

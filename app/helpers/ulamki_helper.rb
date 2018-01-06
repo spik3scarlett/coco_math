@@ -79,8 +79,10 @@ module UlamkiHelper
       render html:  '<a href="/zaokraglanie-liczb-naturalnych" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "zaokraglanie_ulamkow"
       render html:  '<a href="/zaokraglanie-ulamkow" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else # ilerazy
+    elsif session[:rodzaj] == "ilerazy"
      render html:  '<a href="/ile-razy-o-ile" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    else # rzymskie
+     render html:  '<a href="/liczby-rzymskie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     
     end
   end
@@ -155,6 +157,71 @@ end
       odejmij
     end
 
+  end
+  
+  def romanize(number)
+	result = ""	  #converts an int to a roman numeral string
+  	$numerals.each do |digit, letter|
+  		if number >= digit
+	  		result << letter*(number/digit) # string multiplication in ruby only works with whole numbers
+	  		number = (number % digit) #removes the parts of the number already added or leaves it the same otherwise 
+	  	end
+  	end
+  	return result 
+  end
+
+def arabicize(numeral)
+	result = 0
+	$numerals.each do |digit, letter|
+		while numeral.start_with?(letter) do
+			result = result + digit
+			numeral = numeral.slice(letter.length,numeral.length) #
+		end
+	end
+	return result	
+end
+
+	$numerals = {
+	    1000 => "M",  
+	     900 => "CM",  
+	     500 => "D",  
+	     400 => "CD",
+	     100 => "C",  
+	      90 => "XC",  
+	      50 => "L",  
+	      40 => "XL",  
+	      10 => "X",  
+	        9 => "IX",  
+	        5 => "V",  
+	        4 => "IV",  
+	        1 => "I",  
+  				}
+  
+  def konwertuj_rzymskie
+    @wynik = romanize(@ulamek1)
+    wariacja = rand(1..2)
+    if wariacja == 1
+      session[:wynik] = @wynik
+      render html: "Zapisz #{@ulamek1} cyframi rzymskimi."
+    else
+      session[:wynik] = @ulamek1.to_s
+      render html: "Zapisz cyframi arabskimi liczbę rzymską: #{@wynik}."
+    end
+    
+  end
+  
+  def sprawdz_stringi
+    input = params[:w]
+    if input == session[:wynik]
+      if session[:punkty].nil?
+        session[:punkty] = 1
+      else
+        session[:punkty] += 1
+      end  
+    render html: "Świetnie! Zdobywasz punkt! Liczba Twoich punktów: #{session[:punkty]}"
+     else
+    render html: "Pudło! Twoim zdaniem jest to #{params[:w]}, a powinno być #{session[:wynik]}"
+    end
   end
   
 end

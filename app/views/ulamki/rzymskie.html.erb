@@ -1,0 +1,17 @@
+<h1>Ćwiczenia z matematyki</h1>
+<h2>Poczuj się jak Rzymianie! </h2>
+<div class="container">
+  <div class="jumbotron">
+  <p>
+   <%= konwertuj_rzymskie %>
+  </p>
+  
+  
+  <%= form_tag(method: "get", url: '/wynik') do %>
+    <%= label_tag(:w, "Wpisz wynik") %>
+    <%= text_field_tag(:w) %>
+    <%= submit_tag("Sprawdź") %>
+  <% end %>
+  
+  </div>  
+</div>
