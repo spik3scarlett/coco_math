@@ -1,5 +1,27 @@
 module UlamkiHelper
-  
+  def ilerazuj
+    b = rand(1..4)
+    if b == 1 # podaj tyle razy większą
+      @wynik == @ulamek3
+      session[:wynik] = @ulamek3
+      render html: "Bierzemy liczbę #{@ulamek1}. Podaj liczbę #{@ulamek2} razy większą."
+    elsif b == 2 #podaj tyle razy mniejszą
+      @wynik == @ulamek1
+      session[:wynik] = @ulamek1
+      render html: "Bierzemy liczbę #{@ulamek3}. Podaj liczbę #{@ulamek2} razy mniejszą."
+    elsif b == 3 # podaj o tyle większą
+      @wynik == @ulamek1
+      session[:wynik] = @ulamek1
+      render html: "Bierzemy liczbę #{@ulamek4}. Podaj liczbę o #{@ulamek2} większą."
+    else  # czyli b == 4 - podaj o tyle mniejszą
+      @wynik == @ulamek4
+      session[:wynik] = @ulamek4
+      render html: "Bierzemy liczbę #{@ulamek1}. Podaj liczbę o #{@ulamek2} mniejszą."
+      
+     end
+    
+    
+  end
   
   def zaokraglij_naturalne
     session[:wynik] = @wynik
@@ -55,8 +77,10 @@ module UlamkiHelper
       render html:  '<a href="/jednostki" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "zaokraglanie_naturalnych"
       render html:  '<a href="/zaokraglanie-liczb-naturalnych" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else # zaokraglanie_ulamkow
+    elsif session[:rodzaj] == "zaokraglanie_ulamkow"
       render html:  '<a href="/zaokraglanie-ulamkow" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    else # ilerazy
+     render html:  '<a href="/ile-razy-o-ile" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     
     end
   end

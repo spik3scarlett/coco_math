@@ -1,6 +1,17 @@
 class UlamkiController < ApplicationController
   protect_from_forgery with: :exception
   
+  def ilerazy
+    @ulamek1 = rand(11...30)
+    @ulamek2 = rand(2...10)
+    @ulamek3 = @ulamek1 * @ulamek2
+    @ulamek4 = @ulamek1 - @ulamek2
+    session[:rodzaj] = "ilerazy"
+    
+  end
+  
+  
+  
   def tabliczka
     @ulamek1 = rand(2..9)
     @ulamek2 = rand(2..9)
