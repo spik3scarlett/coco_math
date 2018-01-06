@@ -24,4 +24,21 @@ class UlamkiController < ApplicationController
   def wynik
    render 'wynik'
   end
+  
+  
+  def zaokraglanie_naturalnych
+    n = rand(-3..-1)
+    @ulamek1 = rand(10000..99999)
+    @wynik = @ulamek1.round(n)
+    session[:rodzaj] = "zaokraglanie_naturalnych"
+    
+    if n == -3
+      @miejsce = "tysięcy"
+      elsif n == -2
+      @miejsce = "setek"
+    else
+      @miejsce = "dziesiątek"
+    end
+  end
+  
 end

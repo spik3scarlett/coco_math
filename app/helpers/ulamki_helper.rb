@@ -1,4 +1,13 @@
 module UlamkiHelper
+  
+  
+  def zaokraglij_duze
+    session[:wynik] = @wynik
+    render html: "Zaokrąglij liczbę #{@ulamek1} do rzędu #{@miejsce}."
+
+  end
+  
+  
   def usun_zera(wynik)
   tablica = wynik.to_s.chars
     if tablica.include?(".")
@@ -34,8 +43,10 @@ module UlamkiHelper
       render html:  '<a href="/dzialanie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "tabliczka"
       render html:  '<a href="/tabliczka" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else
+    elsif session[:rodzaj] == "jednostki"
       render html:  '<a href="/jednostki" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    else # sesja : zaokraglanie_naturalnych
+      render html:  '<a href="/zaokraglanie-liczb-naturalnych" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     end
   end
   
@@ -54,7 +65,7 @@ module UlamkiHelper
       end  
     render html: "Świetnie! Zdobywasz punkt! Liczba Twoich punktów: #{session[:punkty]}"
      else
-    render html: "Zonk! Twoim zdaniem jest to #{params[:w]}, a powinno być #{usun_zera(session[:wynik])}"
+    render html: "Pudło! Twoim zdaniem jest to #{params[:w]}, a powinno być #{usun_zera(session[:wynik])}"
     end
   end
 
