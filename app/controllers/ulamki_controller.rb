@@ -1,6 +1,11 @@
 class UlamkiController < ApplicationController
   protect_from_forgery with: :exception
-  
+  def procenty
+    session[:rodzaj] = "procenty"
+    
+    
+  end
+
   
   def wynik_stringi
     

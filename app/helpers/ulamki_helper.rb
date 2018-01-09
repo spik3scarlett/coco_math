@@ -1,24 +1,77 @@
 module UlamkiHelper
+
+  def procentuj  
+ 
+    @b = 0
+    @a = 0
+    @procent = 0
+  # losowa metoda ustalenia % i zmiennych @a i @b; konczy sie ustaleniem tych zmiennych  @procent /100 = a/b
+    wariacja_ustalenia = rand(1..7)
+    if wariacja_ustalenia <=2
+      # metoda 1 dowolna liczba z 00 na końcu daje 1 proc. równy liczbie bez zer
+      @b = rand(10..99) * 100
+      @procent = rand(1..99)
+      @a = @procent * @b / 100
+      
+    else 
+        tabela = [[20, rand(1..20)], [10, rand(1..9)], [5, rand(1..4)], [4, rand(1..3)], [2, 1]]
+
+        wybrana_para = tabela.sample
+        mnoznik = wybrana_para[1]
+        if wariacja_ustalenia <7
+          # metoda 2 używamy 5% (1/20), 10% (/10), 20% (1/5), 25% (1/4) i wielokrotności oraz 50% (1/2)
+          @procent = (100 / wybrana_para[0]) * mnoznik
+        else
+          # metoda 3 te z metody2 ale +100%, 200%, 300%
+          n = [100, 200, 300]
+          @procent = (100 / wybrana_para[0]) * mnoznik + n.sample
+        end
+        
+        @b = rand(2..20) * wybrana_para[0] 
+        @a = @procent * @b / 100
+    end
+    
+   #teraz ustalamy o co sie pytamy
+    
+      wariacja_pytania = rand(1..3)
+        if wariacja_pytania == 1 # oblicz procent z liczby
+        session[:wynik] = @a
+        render html: "Podaj, ile wynosi #{@procent}% z liczby #{@b}."
+        
+        elsif wariacja_pytania == 2 # znasz procent, podaj liczbę
+        session[:wynik] = @b
+        render html: "#{@procent}% pewnej liczby wynosi #{@a}. Co to za liczba?"
+        
+        else # wariacja == 3 # podaj jakim % drugiej liczby jest dana liczba
+        session[:wynik] = @procent
+        render html: "Podaj, jaki procent liczby #{@b} stanowi liczba #{@a}."
+        
+        end
+    
+
+    
+  end
+  
   def ilerazuj
     b = rand(1..4)
     if b == 1 # podaj tyle razy większą
-      @wynik == @ulamek3
+      @wynik = @ulamek3
       session[:wynik] = @ulamek3
       render html: "Bierzemy liczbę #{@ulamek1}. Podaj liczbę #{@ulamek2} razy większą."
     elsif b == 2 #podaj tyle razy mniejszą
-      @wynik == @ulamek1
+      @wynik = @ulamek1
       session[:wynik] = @ulamek1
       render html: "Bierzemy liczbę #{@ulamek3}. Podaj liczbę #{@ulamek2} razy mniejszą."
     elsif b == 3 # podaj o tyle większą
-      @wynik == @ulamek1
+      @wynik = @ulamek1
       session[:wynik] = @ulamek1
       render html: "Bierzemy liczbę #{@ulamek4}. Podaj liczbę o #{@ulamek2} większą."
     else  # czyli b == 4 - podaj o tyle mniejszą
-      @wynik == @ulamek4
+      @wynik = @ulamek4
       session[:wynik] = @ulamek4
       render html: "Bierzemy liczbę #{@ulamek1}. Podaj liczbę o #{@ulamek2} mniejszą."
       
-     end
+    end
     
     
   end
@@ -81,9 +134,10 @@ module UlamkiHelper
       render html:  '<a href="/zaokraglanie-ulamkow" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "ilerazy"
      render html:  '<a href="/ile-razy-o-ile" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else # rzymskie
+    elsif session[:rodzaj] == "rzymskie"
      render html:  '<a href="/liczby-rzymskie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    
+    else #procenty
+     render html:  '<a href="/procenty" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     end
   end
   
