@@ -1,6 +1,13 @@
 module UlamkiHelper
   
   def aruj
+    pola = [["m<sup>2</sup>", "metrów kwadratowych", 1], ["a", "arów", 100], ["ha", "hektarów", 10000], ["km<sup>2</sup>", "kilometrów kwadratowych", 1000000]]
+    pola.shuffle!
+    @pole1 = pola.pop
+    @pole2 = pola.pop
+    @ulamek1 = rand(1.0..20.0).to_f.round(1)
+    session[:wynik] = (@ulamek1 * @pole1[2] / @pole2[2]).round(8)
+    return nil
     
   end
 
@@ -140,8 +147,11 @@ module UlamkiHelper
      render html:  '<a href="/ile-razy-o-ile" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "rzymskie"
      render html:  '<a href="/liczby-rzymskie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else #procenty
+    elsif session[:rodzaj] == "procenty"
      render html:  '<a href="/procenty" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+    else #ary
+     render html:  '<a href="/ary-hektary" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
+          
     end
   end
   

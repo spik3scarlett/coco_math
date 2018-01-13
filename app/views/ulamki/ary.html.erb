@@ -1,0 +1,25 @@
+
+<h1>Ćwiczenia z matematyki</h1>
+<h2>Ary i hektary nam niestraszne! </h2>
+<div class="container">
+  <div class="jumbotron">
+  <p>
+  <%= aruj %>
+  Mamy pole o powierzchni <%= @ulamek1 %> <%=@pole1[0].html_safe %> (<%=@pole1[1] %>). Ile to <%=@pole2[1] %>?
+  </p>
+  
+  
+  <%= form_tag(method: "get", url: '/wynik') do %>
+    <%= label_tag(:w, "Wpisz wynik") %>
+    <%= text_field_tag(:w) %>
+    <%= submit_tag("Sprawdź") %>
+  <% end %>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  
+  <p><em>Przypomnienie:</em></p>
+  <%= image_tag("1m.png", :alt => "jednostki pola") %>
+  </div>  
+</div>

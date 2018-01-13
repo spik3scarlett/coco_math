@@ -2,7 +2,6 @@ class UlamkiController < ApplicationController
   protect_from_forgery with: :exception
   
   def ary
-    @ulamek1 = rand(10...100)/10.to_f.raound(1)
     session[:rodzaj] = "ary"
   end
   
