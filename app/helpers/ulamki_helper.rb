@@ -1,4 +1,8 @@
 module UlamkiHelper
+  
+  def aruj
+    
+  end
 
   def procentuj  
  
