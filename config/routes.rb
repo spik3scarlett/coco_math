@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   post '/procenty', to: 'ulamki#wynik'
   get '/ary-hektary', to: 'ulamki#ary'
   post '/ary-hektary', to: 'ulamki#wynik'
+  get '/ulamki-zwykle', to: 'ulamki#ulamki_zwykle'
+  post '/ulamki-zwykle', to: 'ulamki#wynik_ulamki_zwykle'
   
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,5 +1,65 @@
 module UlamkiHelper
   
+  def zwykluj
+    
+    @wybor = 2 # rand(1..2)
+    
+    #rodzaj zadania: odejmij ulamki zwykle, poziom prosty
+    #rodzaj zadania: mnoz ulamki zwykle, poziom prosty
+    #rodzaj zadania: dziel ulamki zwykle, poziom prosty
+    #rodzaj zadania: te same ale z liczbami calkowitaymi z przodu
+    
+    if @wybor == 1
+      #rodzaj zadania: policz ulamek z liczby 
+      @ulamek2 = rand(2..9)
+      @ulamek1 = rand(1...@ulamek2)
+        dzielniki = [2, 3]
+        3.times do
+          dzielniki.each {|dzielnik|
+          if @ulamek2 % dzielnik == 0 && @ulamek1 % dzielnik == 0
+            @ulamek2 = @ulamek2 / dzielnik
+            @ulamek1 = @ulamek1 / dzielnik
+            
+          end
+          }
+        end
+      @ulamek4 = rand(1..20) * @ulamek2
+      @ulamek3 = @ulamek4 / @ulamek2 * @ulamek1
+      session[:wynik] = @ulamek3
+      return nil
+
+    elsif @wybor == 2
+      #rodzaj zadania: dodaj ulamki zwykle, poziom prosty
+      @ulamek2 = rand(2..9)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..9)
+      @ulamek3 = rand(1...@ulamek4)
+      wspolny_mianownik = @ulamek2 * @ulamek4
+      ulamek1_po_rozszerzeniu = @ulamek4 * @ulamek1
+      ulamek3_po_rozszerzeniu = @ulamek2 * @ulamek3
+      licznik_wyniku = ulamek1_po_rozszerzeniu + ulamek3_po_rozszerzeniu
+      until licznik_wyniku.gcd(wspolny_mianownik) == 1 do
+        gcd = licznik_wyniku.gcd(wspolny_mianownik)
+        licznik_wyniku = licznik_wyniku /  gcd
+        wspolny_mianownik = wspolny_mianownik / gcd
+      end
+      
+      if licznik_wyniku > wspolny_mianownik
+        calosci = licznik_wyniku / wspolny_mianownik
+        licznik_wyniku = licznik_wyniku % wspolny_mianownik
+        session[:wynik] = [licznik_wyniku, wspolny_mianownik, calosci]
+        
+      else
+        session[:wynik] = [licznik_wyniku, wspolny_mianownik]
+      end
+      return nil
+    else
+      
+    end
+   
+
+  end
+  
   def aruj
     pola = [["m<sup>2</sup>", "metrów kwadratowych", 1], ["a", "arów", 100], ["ha", "hektarów", 10000], ["km<sup>2</sup>", "kilometrów kwadratowych", 1000000]]
     pola.shuffle!
@@ -149,9 +209,10 @@ module UlamkiHelper
      render html:  '<a href="/liczby-rzymskie" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "procenty"
      render html:  '<a href="/procenty" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-    else #ary
+    elsif session[:rodzaj] == "ary"
      render html:  '<a href="/ary-hektary" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-          
+       else #ulamki_zwykle
+     render html:  '<a href="/ulamki-zwykle" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe   
     end
   end
   
@@ -171,6 +232,22 @@ module UlamkiHelper
     render html: "Świetnie! Zdobywasz punkt! Liczba Twoich punktów: #{session[:punkty]}"
      else
     render html: "Pudło! Twoim zdaniem jest to #{params[:w]}, a powinno być #{usun_zera(session[:wynik])}"
+    end
+  end
+
+  def sprawdz_ulamki_zwykle
+    input = [params[:licznik], params[:mianownik]]   
+    if input[0].to_i == session[:wynik][0].to_i && input[1].to_i == session[:wynik][1].to_i
+      if session[:punkty].nil?
+        session[:punkty] = 1
+      else
+        session[:punkty] += 1
+      end  
+      @rezultat = 1
+    # render html: "Świetnie! Zdobywasz punkt! Liczba Twoich punktów: #{session[:punkty]}"
+     else
+       @rezultat = 0
+   #  render html: "Pudło! Twoim zdaniem jest to #{params[:licznik]} / #{params[:mianownik]}, a powinno być #{(session[:wynik])}."
     end
   end
 

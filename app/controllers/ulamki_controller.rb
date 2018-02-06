@@ -1,6 +1,16 @@
 class UlamkiController < ApplicationController
   protect_from_forgery with: :exception
   
+  def wynik_ulamki_zwykle
+
+  end
+  
+  def ulamki_zwykle
+    session[:rodzaj] = "ulamki_zwykle"
+    
+  end
+
+  
   def ary
     session[:rodzaj] = "ary"
   end

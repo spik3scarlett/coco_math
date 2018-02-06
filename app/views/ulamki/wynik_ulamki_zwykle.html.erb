@@ -1,0 +1,29 @@
+<% provide(@wynik) %>
+
+<h1>Ćwiczenia z matematyki</h1>
+<h2>Sprawdzamy wynik... </h2>
+<div class="container">
+  <div class="jumbotron">
+      <p>
+        <% sprawdz_ulamki_zwykle %>
+        <% if @rezultat == 1 %>
+        Brawo! Zdobywasz punkt. Liczba Twoich punktów wynosi <%= "#{session[:punkty]}" %>.
+        
+        <% else %>
+        <div class="outer_div"> 
+        <div class="d-inline wysrodkowane_w_pionie">Pudło! Twoim zdaniem jest to </div>
+        <div class="d-inline-block wysrodkowane_w_pionie"><div class="licznik"><%= params[:licznik] %></div> <hr color ="black" class="linia_ulamkowa"> <div class="licznik"><%= params[:mianownik] %></div> </div>
+        <div class="d-inline wysrodkowane_w_pionie">, a powinno być:</div>
+        <div class="d-inline-block wysrodkowane_w_pionie"><div class="licznik"><%= session[:wynik][0] %></div> <hr color ="black" class="linia_ulamkowa"> <div class="licznik"><%= session[:wynik][1] %></div></div>
+        <div class="d-inline wysrodkowane_w_pionie">.</div>
+        </div>
+        <% end %>
+        
+        
+        <br/>
+      </p>
+      <%= wstaw_guzik %>
+      
+  </div>
+ 
+</div>

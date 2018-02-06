@@ -1,0 +1,64 @@
+  <%= zwykluj %>
+<h1>Ćwiczenia z matematyki</h1>
+<h2>Ułamki zwykłe, czyli nad kreską i pod kreską</h2>
+<div class="container">
+  <div class="jumbotron"> 
+  
+  <% if @wybor == 1 %>
+  
+  <div class="outer_div"> 
+
+  <div class="d-inline wysrodkowane_w_pionie"> Ile wynosi </div>
+  <div class="d-inline-block wysrodkowane_w_pionie"><%= @ulamek1 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek2 %></div>
+  <div class="d-inline wysrodkowane_w_pionie"> z liczby <%= @ulamek4 %>?</div>
+
+  </div>
+  
+  <%= form_tag(method: "get", url: '/wynik') do %>
+    <%= label_tag(:w, "Wpisz wynik") %>
+    <%= text_field_tag(:w) %>
+    <%= submit_tag("Sprawdź") %>
+  <% end %>
+  </div>  
+  
+  <% else %>
+  
+  <div class="outer_div"> 
+
+  <div class="d-inline wysrodkowane_w_pionie"> Ile to będzie </div>
+  <div class="d-inline-block wysrodkowane_w_pionie"><%= @ulamek1 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek2 %></div>
+  <div class="d-inline wysrodkowane_w_pionie"> + </div>
+  <div class="d-inline-block wysrodkowane_w_pionie"><%= @ulamek3 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek4 %></div>
+  <div class="d-inline wysrodkowane_w_pionie"> ?</div>
+
+  </div>
+  
+  <br/>
+  Uwaga! Wynik podaj w wersji nieskracalnej (tzn. po maksymalnym skróceniu ułamka). 
+  <br/>
+    <div>
+      <div class="d-inline-block wysrodkowane_w_pionie">
+        Mój wynik to: 
+      </div>
+    
+      <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+        
+        <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
+        <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+          <%= text_field_tag(:licznik, nil, :maxlength => 3, :size => 3) %>
+          <hr color="black" class="linia_ulamkowa" width="60px">
+          <%= text_field_tag(:mianownik, nil, :maxlength => 3, :size => 3) %>
+        </div> 
+         
+          <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
+     
+          <% end %>
+        
+      </div>
+    </div>
+  </div>
+  
+  <% end %>
+  
+  
+</div>
