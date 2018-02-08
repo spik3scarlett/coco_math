@@ -24,7 +24,10 @@ Rails.application.routes.draw do
   post '/ary-hektary', to: 'ulamki#wynik'
   get '/ulamki-zwykle', to: 'ulamki#ulamki_zwykle'
   post '/ulamki-zwykle', to: 'ulamki#wynik_ulamki_zwykle'
+  get '/liczby-ujemne', to: 'ulamki#liczby_ujemne'
+  post '/liczby-ujemne', to: 'ulamki#wynik'
   
+
 
   # The priority is based upon order of creation: first created -> highest priority.
 

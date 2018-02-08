@@ -1,5 +1,27 @@
 module UlamkiHelper
   
+  def ujemnuj
+    ulamek1 = rand(-20..20)
+    ulamek2 = rand(-20..20)
+    ulamek3 = rand(-20..20)
+    operator1 = ["+", "-"].sample
+    operator2 = ["+", "-"].sample
+    if ulamek2 > 0 || ulamek2 == 0
+      ulamek2string = "#{ulamek2}"
+      else
+        ulamek2string = "(#{ulamek2})"
+    end
+    if ulamek3 > 0 || ulamek3 == 0
+      ulamek3string = "#{ulamek3}"
+      else
+        ulamek3string = "(#{ulamek3})"
+    end
+      
+    dzialanie = "#{ulamek1}" + "#{operator1}" + "#{ulamek2string}" + "#{operator2}" + "#{ulamek3string}"
+    session[:wynik] = eval dzialanie
+    render html: "Ile to będzie: #{dzialanie} ?"
+  end
+  
   def zwykluj
     
     @wybor = 2 # rand(1..2)
@@ -211,8 +233,10 @@ module UlamkiHelper
      render html:  '<a href="/procenty" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "ary"
      render html:  '<a href="/ary-hektary" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
-       else #ulamki_zwykle
-     render html:  '<a href="/ulamki-zwykle" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe   
+    elsif session[:rodzaj] == "ulamki_zwykle"
+     render html:  '<a href="/ulamki-zwykle" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe 
+    else #liczby_ujemne
+    render html:  '<a href="/liczby-ujemne" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe 
     end
   end
   

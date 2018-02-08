@@ -11,9 +11,9 @@
         
         <% else %>
         <div class="outer_div"> 
-        <div class="d-inline wysrodkowane_w_pionie">Pudło! Twoim zdaniem jest to </div>
+        <div class="d-inline wysrodkowane_w_pionie">Pudło! Twoim zdaniem jest to <%= params[:calosci] %></div>
         <div class="d-inline-block wysrodkowane_w_pionie"><div class="licznik"><%= params[:licznik] %></div> <hr color ="black" class="linia_ulamkowa"> <div class="licznik"><%= params[:mianownik] %></div> </div>
-        <div class="d-inline wysrodkowane_w_pionie">, a powinno być:</div>
+        <div class="d-inline wysrodkowane_w_pionie">, a powinno być: <%= session[:wynik][2] unless nil %></div>
         <div class="d-inline-block wysrodkowane_w_pionie"><div class="licznik"><%= session[:wynik][0] %></div> <hr color ="black" class="linia_ulamkowa"> <div class="licznik"><%= session[:wynik][1] %></div></div>
         <div class="d-inline wysrodkowane_w_pionie">.</div>
         </div>
