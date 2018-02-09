@@ -1,26 +1,54 @@
 module UlamkiHelper
   
   def ujemnuj
-    ulamek1 = rand(-20..20)
-    ulamek2 = rand(-20..20)
-    ulamek3 = rand(-20..20)
-    operator1 = ["+", "-"].sample
-    operator2 = ["+", "-"].sample
-    if ulamek2 > 0 || ulamek2 == 0
-      ulamek2string = "#{ulamek2}"
-      else
-        ulamek2string = "(#{ulamek2})"
+    
+    wybor = rand(1..3)
+    
+    if wybor == 1
+      ulamek1 = rand(-20..20)
+      ulamek2 = rand(-20..20)
+      ulamek3 = rand(-20..20)
+      operator1 = ["+", "-"].sample
+      operator2 = ["+", "-"].sample
+      if ulamek2 > 0 || ulamek2 == 0
+        ulamek2string = "#{ulamek2}"
+        else
+          ulamek2string = "(#{ulamek2})"
+      end
+      if ulamek3 > 0 || ulamek3 == 0
+        ulamek3string = "#{ulamek3}"
+        else
+          ulamek3string = "(#{ulamek3})"
+      end
+        
+      dzialanie = "#{ulamek1}" + "#{operator1}" + "#{ulamek2string}" + "#{operator2}" + "#{ulamek3string}"
+      session[:wynik] = eval dzialanie
+      render html: "Ile to będzie: #{dzialanie} ?"
+    
+    elsif wybor == 2 
+      ulamek1 = rand(-10..10)
+      if ulamek1 < 0 then ulamek2 = rand(-20..20) else ulamek2 = rand(-20..-1) end
+      ulamek3 = ulamek1 * ulamek2
+      if ulamek1 < 0 then ulamek1string = "(#{ulamek1})" else ulamek1string = "#{ulamek1}" end
+      if ulamek2 < 0 then ulamek2string = "(#{ulamek2})" else ulamek2string = "#{ulamek2}" end  
+      session[:wynik] = ulamek3
+      render html: "Ile to będzie #{ulamek1string} x #{ulamek2string}?"
+    else
+      ulamek1 = rand(-10..10)
+      if ulamek1 < 0 then ulamek2 = rand(-20..20) else ulamek2 = rand(-20..-1) end
+      ulamek3 = ulamek1 * ulamek2
+      if ulamek3 < 0 then ulamek3string = "(#{ulamek3})" else ulamek3string = "#{ulamek3}" end
+      if ulamek2 < 0 then ulamek2string = "(#{ulamek2})" else ulamek2string = "#{ulamek2}" end  
+        
+      session[:wynik] = ulamek1
+      render html: "Ile to będzie #{ulamek3string} : #{ulamek2string}?"
+    
     end
-    if ulamek3 > 0 || ulamek3 == 0
-      ulamek3string = "#{ulamek3}"
-      else
-        ulamek3string = "(#{ulamek3})"
-    end
-      
-    dzialanie = "#{ulamek1}" + "#{operator1}" + "#{ulamek2string}" + "#{operator2}" + "#{ulamek3string}"
-    session[:wynik] = eval dzialanie
-    render html: "Ile to będzie: #{dzialanie} ?"
+    
   end
+  
+  
+  
   
   def zwykluj
     
