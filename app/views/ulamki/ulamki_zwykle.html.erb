@@ -21,7 +21,7 @@
   <% end %>
   </div>  
   
-  <% else %>
+  <% elsif @wybor == 2 %>
   
   <div class="outer_div"> 
 
@@ -42,7 +42,16 @@
       </div>
     
       <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
-        <% if session[:wynik][2] == nil %>
+        <% if session[:wynik][1] == nil %> <!-- w wyniku są tylko całości -->
+           <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
+             <div class="d-inline-block wysrodkowane_w_pionie"> 
+             <%= text_field_tag(:calosci, nil, :maxlength => 2, :size => 2) %>
+             </div>
+     
+             <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
+          <% end %>
+             
+        <% elsif session[:wynik][2] == nil %> <!-- nie ma calosci w wyniku -->
         <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
         <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
           <%= text_field_tag(:licznik, nil, :maxlength => 2, :size => 3) %>
@@ -50,25 +59,115 @@
           <%= text_field_tag(:mianownik, nil, :maxlength => 3, :size => 3) %>
          
         </div>
-        <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
-        <% end %>
+          <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
+          <% end %>
         
-        <% else %> 
-         <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
-           <div class="d-inline-block wysrodkowane_w_pionie"> 
-           <%= text_field_tag(:calosci, nil, :maxlength => 2, :size => 2) %>
-           </div>
+
+        <% else %>
+           <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
+             <div class="d-inline-block wysrodkowane_w_pionie"> 
+             <%= text_field_tag(:calosci, nil, :maxlength => 2, :size => 2) %>
+             </div>
+           
+             <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+              <%= text_field_tag(:licznik, nil, :maxlength => 2, :size => 3) %>
+              <hr color="black" class="linia_ulamkowa" width="60px">
+              <%= text_field_tag(:mianownik, nil, :maxlength => 3, :size => 3) %>
+             </div> 
+             <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
+             <% end %>
+             
+         <% end %>   
+         </div>
+    
+  <% elsif @wybor == 3 %>
+    <div class="outer_div"> 
+  
+    <div class="d-inline wysrodkowane_w_pionie"> Ile to będzie </div>
+    <div class="d-inline-block wysrodkowane_w_pionie"><%= @ulamek1 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek2 %></div>
+    <div class="d-inline wysrodkowane_w_pionie"> x </div>
+    <div class="d-inline-block wysrodkowane_w_pionie"><%= @ulamek3 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek4 %></div>
+    <div class="d-inline wysrodkowane_w_pionie"> ?</div>
+  
+    </div>
+    
+    <br/>
+    Uwaga! Wynik podaj w wersji nieskracalnej (tzn. po maksymalnym skróceniu ułamka). 
+    <br/>
+      <div>
+        <div class="d-inline-block wysrodkowane_w_pionie">
+          Mój wynik to: 
+        </div>
+        <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+        <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
+        <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+          <%= text_field_tag(:licznik, nil, :maxlength => 2, :size => 3) %>
+          <hr color="black" class="linia_ulamkowa" width="60px">
+          <%= text_field_tag(:mianownik, nil, :maxlength => 3, :size => 3) %>
          
-           <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
-            <%= text_field_tag(:licznik, nil, :maxlength => 2, :size => 3) %>
-            <hr color="black" class="linia_ulamkowa" width="60px">
-            <%= text_field_tag(:mianownik, nil, :maxlength => 3, :size => 3) %>
-           </div> 
-           <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
-           <% end %>
-        <% end %> 
+        </div>
+          <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
+          <% end %>
+        </div>
+        
+  <% elsif @wybor == 4 %>
+    <div class="outer_div"> 
+    <div class="d-inline wysrodkowane_w_pionie"> Ile to będzie </div>
+    <div class="d-inline-block wysrodkowane_w_pionie"><%= @licznik_wyniku %> <hr color ="black" class="linia_ulamkowa"> <%= @wspolny_mianownik %></div>
+    <div class="d-inline wysrodkowane_w_pionie"> : </div>
+    <div class="d-inline-block wysrodkowane_w_pionie"><%= @ulamek3 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek4 %></div>
+    <div class="d-inline wysrodkowane_w_pionie"> ?</div>
+  
+    </div>
+    
+    <br/>
+    Uwaga! Wynik podaj w wersji nieskracalnej (tzn. po maksymalnym skróceniu ułamka). 
+    <br/>
+      <div>
+        <div class="d-inline-block wysrodkowane_w_pionie">
+          Mój wynik to: 
+        </div>
+        <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+        <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
+        <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+          <%= text_field_tag(:licznik, nil, :maxlength => 2, :size => 3) %>
+          <hr color="black" class="linia_ulamkowa" width="60px">
+          <%= text_field_tag(:mianownik, nil, :maxlength => 3, :size => 3) %>
          
+        </div>
+          <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
+          <% end %>
+        </div>
+        
+        
+  <% else %>
+    <div class="outer_div"> 
+    <div class="d-inline wysrodkowane_w_pionie"> Ile to będzie </div>
+    <div class="d-inline-block wysrodkowane_w_pionie licznik"><%= @ulamek_wiekszy_1 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek_wiekszy_2 %></div>
+    <div class="d-inline wysrodkowane_w_pionie"> - </div>
+    <div class="d-inline-block wysrodkowane_w_pionie licznik"><%= @ulamek_mniejszy_1 %> <hr color ="black" class="linia_ulamkowa"> <%= @ulamek_mniejszy_2 %></div>
+    <div class="d-inline wysrodkowane_w_pionie"> ?</div>
+  
+    </div>
+    
+    <br/>
+    Uwaga! Wynik podaj w wersji nieskracalnej (tzn. po maksymalnym skróceniu ułamka). 
+    <br/>
+      <div>
+        <div class="d-inline-block wysrodkowane_w_pionie">
+          Mój wynik to: 
+        </div>
+        <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+        <%= form_tag(method: "get", url: '/wynik-ulamki-zwykle') do %>
+        <div class="d-inline-block ulamek_zwykly wysrodkowane_w_pionie">
+          <%= text_field_tag(:licznik, nil, :maxlength => 2, :size => 3) %>
+          <hr color="black" class="linia_ulamkowa" width="60px">
+          <%= text_field_tag(:mianownik, nil, :maxlength => 3, :size => 3) %>
          
+        </div>
+          <%= submit_tag("Sprawdź", :class => "d-inline-block wysrodkowane_w_pionie") %>
+          <% end %>
+        </div>
          
         
       </div>

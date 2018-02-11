@@ -52,7 +52,7 @@ module UlamkiHelper
   
   def zwykluj
     
-    @wybor = 2 # rand(1..2)
+    @wybor = rand(1..5)
     
     #rodzaj zadania: odejmij ulamki zwykle, poziom prosty
     #rodzaj zadania: mnoz ulamki zwykle, poziom prosty
@@ -94,16 +94,100 @@ module UlamkiHelper
         wspolny_mianownik = wspolny_mianownik / gcd
       end
       
-      if licznik_wyniku > wspolny_mianownik
+      if licznik_wyniku >= wspolny_mianownik
         calosci = licznik_wyniku / wspolny_mianownik
         licznik_wyniku = licznik_wyniku % wspolny_mianownik
-        session[:wynik] = [licznik_wyniku, wspolny_mianownik, calosci]
-        
+        if licznik_wyniku == 0
+          session[:wynik] = [calosci]
+        else
+          session[:wynik] = [licznik_wyniku, wspolny_mianownik, calosci]
+        end
       else
         session[:wynik] = [licznik_wyniku, wspolny_mianownik]
       end
       return nil
-    else
+      
+    elsif @wybor == 3 
+    # mnozenie ulamkow zwyklych bez calosci
+      @ulamek2 = rand(2..9)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..9)
+      @ulamek3 = rand(1...@ulamek4)
+      licznik_wyniku = @ulamek1 * @ulamek3
+      wspolny_mianownik = @ulamek2 * @ulamek4
+      until licznik_wyniku.gcd(wspolny_mianownik) == 1 do
+        gcd = licznik_wyniku.gcd(wspolny_mianownik)
+        licznik_wyniku = licznik_wyniku /  gcd
+        wspolny_mianownik = wspolny_mianownik / gcd
+      end
+      session[:wynik] = [licznik_wyniku, wspolny_mianownik]
+      return nil
+      
+      elsif @wybor == 4 
+    # dzielenie ulamkow zwyklych bez calosci
+      @ulamek2 = rand(2..9)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..9)
+      @ulamek3 = rand(1...@ulamek4)
+      @licznik_wyniku = @ulamek1 * @ulamek3
+      @wspolny_mianownik = @ulamek2 * @ulamek4
+      until @licznik_wyniku.gcd(@wspolny_mianownik) == 1 do
+        gcd = @licznik_wyniku.gcd(@wspolny_mianownik)
+        @licznik_wyniku = @licznik_wyniku /  gcd
+        @wspolny_mianownik = @wspolny_mianownik / gcd
+      end
+      
+      
+        
+      until @ulamek1.gcd(@ulamek2) == 1 do
+        gcd = @ulamek1.gcd(@ulamek2)
+        @ulamek1 = @ulamek1 /  gcd
+        @ulamek2 = @ulamek2 / gcd
+      end
+      
+      
+      
+      session[:wynik] = [@ulamek1, @ulamek2]
+      return nil
+      
+    else  
+      #odejmowanie ulamkow zwyklych bez calosci i bez przechodzenia o 1 nizej
+      
+      @ulamek2 = rand(2..10)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..10)
+      @ulamek3 = rand(1...@ulamek4)
+      @wspolny_mianownik = @ulamek2 * @ulamek4
+      ulamek1_po_rozszerzeniu = @ulamek4 * @ulamek1
+      ulamek3_po_rozszerzeniu = @ulamek2 * @ulamek3
+      if ulamek1_po_rozszerzeniu > ulamek3_po_rozszerzeniu
+        @ulamek_wiekszy_1 = @ulamek1
+        @ulamek_wiekszy_2 = @ulamek2
+        @ulamek_mniejszy_1 = @ulamek3
+        @ulamek_mniejszy_2 = @ulamek4
+        @licznik_wyniku = ulamek1_po_rozszerzeniu - ulamek3_po_rozszerzeniu
+      else
+        @ulamek_wiekszy_1 = @ulamek3
+        @ulamek_wiekszy_2 = @ulamek4
+        @ulamek_mniejszy_1 = @ulamek1
+        @ulamek_mniejszy_2 = @ulamek2
+        @licznik_wyniku = ulamek3_po_rozszerzeniu - ulamek1_po_rozszerzeniu
+      end  
+   
+      until @licznik_wyniku.gcd(@wspolny_mianownik) == 1 do
+        gcd = @licznik_wyniku.gcd(@wspolny_mianownik)
+        @licznik_wyniku = @licznik_wyniku /  gcd
+        @wspolny_mianownik = @wspolny_mianownik / gcd
+      end
+      
+      
+      if @licznik_wyniku == 0 then zwykluj end 
+      
+      session[:wynik] = [@licznik_wyniku, @wspolny_mianownik]
+  
+      return nil
+   
+      
       
     end
    
@@ -286,20 +370,29 @@ module UlamkiHelper
     render html: "Pudło! Twoim zdaniem jest to #{params[:w]}, a powinno być #{usun_zera(session[:wynik])}"
     end
   end
+  
+  def dodaj_punkty
+     if session[:punkty].nil?
+          session[:punkty] = 1
+        else
+          session[:punkty] += 1
+     end  
+  end
 
   def sprawdz_ulamki_zwykle
-    input = [params[:licznik], params[:mianownik]]   
-    if input[0].to_i == session[:wynik][0].to_i && input[1].to_i == session[:wynik][1].to_i
-      if session[:punkty].nil?
-        session[:punkty] = 1
-      else
-        session[:punkty] += 1
-      end  
+    input = [params[:licznik], params[:mianownik], params[:calosci]]
+    if session[:wynik][1] == nil && input[2].to_i == session[:wynik][0].to_i # są tylko całości, wtedy session[:wynik] ma tylko jeden element 
+      dodaj_punkty
       @rezultat = 1
-    # render html: "Świetnie! Zdobywasz punkt! Liczba Twoich punktów: #{session[:punkty]}"
-     else
-       @rezultat = 0
-   #  render html: "Pudło! Twoim zdaniem jest to #{params[:licznik]} / #{params[:mianownik]}, a powinno być #{(session[:wynik])}."
+    elsif session[:wynik][2] == nil && input[0].to_i == session[:wynik][0].to_i && input[1].to_i == session[:wynik][1].to_i # nie ma całości, zgadza się licznik i mianownik
+      dodaj_punkty
+      @rezultat = 1
+    elsif input[0].to_i == session[:wynik][0].to_i && input[1].to_i == session[:wynik][1].to_i && input[2].to_i == session[:wynik][2].to_i
+      dodaj_punkty
+      @rezultat = 1
+    
+    else
+      @rezultat = 0
     end
   end
 
