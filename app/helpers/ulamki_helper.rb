@@ -52,13 +52,13 @@ module UlamkiHelper
   
   def zwykluj
     
-    @wybor = rand(1..5)
+    @wybor = 1 # rand(1..5)
     
 
 
     if @wybor == 1
       #rodzaj zadania: policz ulamek z liczby 
-      @ulamek2 = rand(2..9)
+      @ulamek2 = rand(2..10)
       @ulamek1 = rand(1...@ulamek2)
         dzielniki = [2, 3]
         3.times do
@@ -72,7 +72,8 @@ module UlamkiHelper
         end
       @ulamek4 = rand(1..20) * @ulamek2
       @ulamek3 = @ulamek4 / @ulamek2 * @ulamek1
-      session[:wynik] = @ulamek3
+      session[:wynik] = [@ulamek3]
+      
       return nil
 
     elsif @wybor == 2
