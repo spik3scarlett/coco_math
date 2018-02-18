@@ -1,5 +1,5 @@
 module UlamkiHelper
-  
+
   def ujemnuj
     
     wybor = rand(1..3)
@@ -54,11 +54,8 @@ module UlamkiHelper
     
     @wybor = rand(1..5)
     
-    #rodzaj zadania: odejmij ulamki zwykle, poziom prosty
-    #rodzaj zadania: mnoz ulamki zwykle, poziom prosty
-    #rodzaj zadania: dziel ulamki zwykle, poziom prosty
-    #rodzaj zadania: te same ale z liczbami calkowitaymi z przodu
-    
+
+
     if @wybor == 1
       #rodzaj zadania: policz ulamek z liczby 
       @ulamek2 = rand(2..9)
@@ -88,6 +85,8 @@ module UlamkiHelper
       ulamek1_po_rozszerzeniu = @ulamek4 * @ulamek1
       ulamek3_po_rozszerzeniu = @ulamek2 * @ulamek3
       licznik_wyniku = ulamek1_po_rozszerzeniu + ulamek3_po_rozszerzeniu
+     
+      
       until licznik_wyniku.gcd(wspolny_mianownik) == 1 do
         gcd = licznik_wyniku.gcd(wspolny_mianownik)
         licznik_wyniku = licznik_wyniku /  gcd
@@ -150,7 +149,7 @@ module UlamkiHelper
       session[:wynik] = [@ulamek1, @ulamek2]
       return nil
       
-    else  
+    else # @wybor == 5  
       #odejmowanie ulamkow zwyklych bez calosci i bez przechodzenia o 1 nizej
       
       @ulamek2 = rand(2..10)
@@ -186,12 +185,157 @@ module UlamkiHelper
       session[:wynik] = [@licznik_wyniku, @wspolny_mianownik]
   
       return nil
-   
+      
+    end  
+  
+  end   
+  
+  def zwykluj_ninja
+    @wybor = rand(2..5)
       
       
-    end
+      if @wybor == 2 #rodzaj zadania: dodaj ulamki zwykle, poziom ninja
+      @ulamek2 = rand(2..9)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..9)
+      @ulamek3 = rand(1...@ulamek4)
+      @calosc1 = rand(1..20)
+      @calosc2 = rand(1..20)
+      ulamek1_z_caloscia = @calosc1 * @ulamek2 + @ulamek1
+      ulamek3_z_caloscia = @calosc2 * @ulamek4 + @ulamek3
+      wspolny_mianownik = @ulamek2 * @ulamek4
+      ulamek1_po_rozszerzeniu = @ulamek4 * ulamek1_z_caloscia
+      ulamek3_po_rozszerzeniu = @ulamek2 * ulamek3_z_caloscia
+      licznik_wyniku = ulamek1_po_rozszerzeniu + ulamek3_po_rozszerzeniu
+     
+      
+      until licznik_wyniku.gcd(wspolny_mianownik) == 1 do
+        gcd = licznik_wyniku.gcd(wspolny_mianownik)
+        licznik_wyniku = licznik_wyniku /  gcd
+        wspolny_mianownik = wspolny_mianownik / gcd
+      end
+      
+     
+      calosci = licznik_wyniku / wspolny_mianownik
+      licznik_wyniku = licznik_wyniku % wspolny_mianownik
+        if licznik_wyniku == 0
+          session[:wynik] = [calosci]
+        else
+          session[:wynik] = [licznik_wyniku, wspolny_mianownik, calosci]
+        end
+     
+      return nil
+      
+      elsif @wybor == 3
+      # mnozenie ulamkow zwyklych z calosciami
+      @ulamek2 = rand(2..9)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..9)
+      @ulamek3 = rand(1...@ulamek4)
+      @calosc1 = rand(1..9)
+      @calosc2 = rand(1..9)
+      ulamek1_z_caloscia = @calosc1 * @ulamek2 + @ulamek1
+      ulamek3_z_caloscia = @calosc2 * @ulamek4 + @ulamek3
+      licznik_wyniku = ulamek1_z_caloscia * ulamek3_z_caloscia
+      wspolny_mianownik = @ulamek2 * @ulamek4
+      until licznik_wyniku.gcd(wspolny_mianownik) == 1 do
+        gcd = licznik_wyniku.gcd(wspolny_mianownik)
+        licznik_wyniku = licznik_wyniku /  gcd
+        wspolny_mianownik = wspolny_mianownik / gcd
+      end
+      
+      calosci = licznik_wyniku / wspolny_mianownik
+      licznik_wyniku = licznik_wyniku % wspolny_mianownik
+        if licznik_wyniku == 0
+          session[:wynik] = [calosci]
+        else
+          session[:wynik] = [licznik_wyniku, wspolny_mianownik, calosci]
+        end
+      
+      
+      session[:wynik] = [licznik_wyniku, wspolny_mianownik, calosci]
+      return nil
+      
+      elsif @wybor == 4 
+    # dzielenie ulamkow zwyklych z calosciami
+      @ulamek2 = rand(2..9)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..9)
+      @ulamek3 = rand(1...@ulamek4)
+      @calosc1 = rand(1..9)
+      @calosc2 = rand(1..9)
+      ulamek1_z_caloscia = @calosc1 * @ulamek2 + @ulamek1
+      ulamek3_z_caloscia = @calosc2 * @ulamek4 + @ulamek3
+      @licznik_wyniku = ulamek1_z_caloscia * ulamek3_z_caloscia
+      @wspolny_mianownik = @ulamek2 * @ulamek4
+      
+      until @licznik_wyniku.gcd(@wspolny_mianownik) == 1 do
+        gcd = @licznik_wyniku.gcd(@wspolny_mianownik)
+        @licznik_wyniku = @licznik_wyniku /  gcd
+        @wspolny_mianownik = @wspolny_mianownik / gcd
+      end
+      
+      
+        
+      until @ulamek1.gcd(@ulamek2) == 1 do
+        gcd = @ulamek1.gcd(@ulamek2)
+        @ulamek1 = @ulamek1 /  gcd
+        @ulamek2 = @ulamek2 / gcd
+      end
+      
+      
+      @calosc_wyniku = @licznik_wyniku / @wspolny_mianownik
+      @licznik_wyniku = @licznik_wyniku % @wspolny_mianownik
+      
+      calosci = @calosc1
+      
+      session[:wynik] = [@ulamek1, @ulamek2, calosci]
+      return nil
+      
+      else # wybor == 5 
+      
+    
+      #odejmowanie ulamkow zwyklych z calosciami 
+      
+      @ulamek2 = rand(2..10)
+      @ulamek1 = rand(1...@ulamek2)
+      @ulamek4 = rand(2..10)
+      @ulamek3 = rand(1...@ulamek4)
+      a = @ulamek1.to_f / @ulamek2.to_f
+      b = @ulamek3.to_f / @ulamek4.to_f
+      if a > b # zapewnia że bedziemy odejmowac zawsze ulamek wiekszy od mniejszego
+        @ulamek1,@ulamek3 = @ulamek3,@ulamek1
+        @ulamek2,@ulamek4 = @ulamek4,@ulamek2
+      end  
+      
+      
+      @calosc1 = rand(20..105)
+      @calosc2 = rand(1..19)
+      @wspolny_mianownik = @ulamek2 * @ulamek4
+      @ulamek1_z_caloscia = (@calosc1 * @ulamek2 + @ulamek1) * @ulamek4
+      @ulamek3_z_caloscia = (@calosc2 * @ulamek4 + @ulamek3) * @ulamek2
+      
+      @licznik_wyniku = @ulamek1_z_caloscia - @ulamek3_z_caloscia
+      @wspolny_mianownik = @ulamek2 * @ulamek4
+      
    
-
+      until @licznik_wyniku.gcd(@wspolny_mianownik) == 1 do
+        gcd = @licznik_wyniku.gcd(@wspolny_mianownik)
+        @licznik_wyniku = @licznik_wyniku /  gcd
+        @wspolny_mianownik = @wspolny_mianownik / gcd
+      end
+      
+      calosci = @licznik_wyniku / @wspolny_mianownik
+      @licznik_wyniku = @licznik_wyniku % @wspolny_mianownik
+        if @licznik_wyniku == 0
+          session[:wynik] = [calosci]
+        else
+          session[:wynik] = [@licznik_wyniku, @wspolny_mianownik, calosci]
+        end
+        
+      return nil
+      
+      end
   end
   
   def aruj
@@ -347,8 +491,10 @@ module UlamkiHelper
      render html:  '<a href="/ary-hektary" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe
     elsif session[:rodzaj] == "ulamki_zwykle"
      render html:  '<a href="/ulamki-zwykle" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe 
-    else #liczby_ujemne
+    elsif session[:rodzaj] == "liczby_ujemne"
     render html:  '<a href="/liczby-ujemne" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe 
+    else #ulamki_ninja
+    render html:  '<a href="/ulamki-zwykle-ninja" classtype="button" class="btn btn-info" value="Input Button">Gram dalej</a>'.html_safe 
     end
   end
   

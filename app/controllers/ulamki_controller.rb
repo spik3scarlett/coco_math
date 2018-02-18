@@ -1,6 +1,10 @@
 class UlamkiController < ApplicationController
   protect_from_forgery with: :exception
   
+  def ulamki_ninja
+    session[:rodzaj] = "ulamki_ninja"
+  end
+  
   def liczby_ujemne
     session[:rodzaj] = "liczby_ujemne"
   end
