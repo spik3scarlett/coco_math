@@ -52,7 +52,7 @@ module UlamkiHelper
   
   def zwykluj
     
-    @wybor = 1 # rand(1..5)
+    @wybor =  rand(1..5)
     
 
 
